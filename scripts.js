@@ -17,8 +17,29 @@ function cleanWordPaste( in_word_text ) {
 
 console.log('loaded');
 
-$(document).ready(function() {
-  $('.asdf').on('paste', function(e){
-    e.preventDefault();
-  })
+$(document).ready(function(){
+
+  tinymce.init({
+    selector: 'div[contenteditable=true]',
+    statusbar: false,
+    toolbar: false,
+    menubar: false,
+    inline: true,
+    plugins: "paste",
+    // paste_word_valid_elements: "b,strong,i,h1,h2"
+  });
+
+  $('#hello').on('click', function(){
+    $div = $('<div class="asdf" contenteditable=true style="width: 200px; min-height: 15px; background-color: lightblue;">');
+    $('body').append($div);
+    tinymce.init({
+      selector: 'div[contenteditable=true]',
+      statusbar: false,
+      toolbar: false,
+      menubar: false,
+      inline: true,
+      plugins: "paste",
+      // paste_word_valid_elements: "b,strong,i,h1,h2"
+    });
+  });
 });
