@@ -5,9 +5,37 @@
     <title>Div Content Editable Testing</title>
     <script src="https://code.jquery.com/jquery-3.0.0.min.js" charset="utf-8"></script>
     <script src="scripts.js" charset="utf-8"></script>
+    <script src="tinymce/tinymce.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      tinymce.init({
+        selector: 'div[contenteditable=true]',
+        statusbar: false,
+        toolbar: false,
+        menubar: false,
+        inline: true
+     });
+     $(document).ready(function(){
+       $('#hello').on('click', function(){
+         $div = $('<div class="asdf" contenteditable=true style="width: 200px; min-height: 15px; background-color: lightblue;">');
+         $('body').append($div);
+         tinymce.init({
+           selector: 'div[contenteditable=true]',
+           statusbar: false,
+           toolbar: false,
+           menubar: false,
+           inline: true
+         });
+       })
+     })
+    </script>
   </head>
   <body>
-    <div class="asdf" contenteditable=true style="width: 200px; min-height: 15px; background-color: lightblue;">
+    <button type="button" id="hello" name="button">Add Content Editable Div</button>
+    <div class="asdf" contenteditable="true" style="width: 200px; min-height: 15px; background-color: lightblue;">
+
+    </div>
+
+    <div class="asdf" contenteditable="true" style="width: 200px; min-height: 15px; background-color: lightblue;">
 
     </div>
   </body>
