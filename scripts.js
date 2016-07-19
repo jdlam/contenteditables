@@ -17,21 +17,20 @@ function cleanWordPaste( in_word_text ) {
 
 console.log('loaded');
 
+(function($) {
+    var origAppend = $.fn.append;
+
+    $.fn.append = function () {
+      return origAppend.apply(this, arguments).trigger("append");
+    };
+})(jQuery);
+
+$("div").bind("append", function() { alert('Hello, world!'); });
+
+$("div").append("<span>");
+
 $(document).ready(function(){
-
-  tinymce.init({
-    selector: 'div[contenteditable=true]',
-    statusbar: false,
-    toolbar: false,
-    menubar: false,
-    inline: true,
-    plugins: "paste",
-    // paste_word_valid_elements: "b,strong,i,h1,h2"
-  });
-
-  $('#hello').on('click', function(){
-    $div = $('<div class="asdf" contenteditable=true style="width: 200px; min-height: 15px; background-color: lightblue;">');
-    $('body').append($div);
+  $('body').bind("append", function() {
     tinymce.init({
       selector: 'div[contenteditable=true]',
       statusbar: false,
@@ -39,7 +38,24 @@ $(document).ready(function(){
       menubar: false,
       inline: true,
       plugins: "paste",
+      forced_root_block: false
       // paste_word_valid_elements: "b,strong,i,h1,h2"
     });
+    console.log('append occurred');
+  });
+
+  $('#hello').on('click', function(){
+    $div = $('<div class="asdf" contenteditable=true style="width: 200px; min-height: 15px; background-color: lightblue;">');
+    $('body').append($div);
+    // tinymce.init({
+    //   selector: 'div[contenteditable=true]',
+    //   statusbar: false,
+    //   toolbar: false,
+    //   menubar: false,
+    //   inline: true,
+    //   plugins: "paste",
+    //   forced_root_block: false
+    //   // paste_word_valid_elements: "b,strong,i,h1,h2"
+    // });
   });
 });
