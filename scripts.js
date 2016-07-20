@@ -1,28 +1,62 @@
-// http://stackoverflow.com/questions/2875027/clean-microsoft-word-pasted-text-using-javascript
-function cleanWordPaste( in_word_text ) {
-  var tmp = document.createElement("DIV");
-  tmp.innerHTML = in_word_text;
-  var newString = tmp.textContent||tmp.innerText;
-  // this next piece converts line breaks into break tags
-  // and removes the seemingly endless crap code
-  newString  = newString.replace(/\n\n/g, "<br />").replace(/.*<!--.*-->/g,"");
-  // this next piece removes any break tags (up to 10) at beginning
-  for ( i=0; i<10; i++ ) {
-    if ( newString.substr(0,6)=="<br />" ) {
-      newString = newString.replace("<br />", "");
-    }
-  }
-  return newString;
-}
+CKEDITOR.disableAutoInline = true;
 
 (function($) {
+
   $(document).ready(function(){
+    // CKEDITOR.disableAutoInLine = true;
+    CKEDITOR.inline('area1', {
+      removePlugins: 'toolbar',
+      allowedContent: 'strong ol li ul br',
+      enterMode: 2,
+      shiftEnterMode: 2
+    });
     console.log('loaded');
     $('#hello').on('click', function(){
-      $div = $('<div class="asdf" contenteditable=true">');
+      $div = $('<div class="asdf" contenteditable="true">');
       $('body').append($div);
     });
+
+
+
+    // $('.asdf').each(function() {
+    //   this.ckeditor({height: 30 });
+    // })
+    //
+    // var element = document.getElementById('area1');
+    // var region = new ContentEdit.Region(element);
+
+    // editor = CKEDITOR.inline( 'div[contenteditable=true]', {
+    //   removePlugins: 'toolbar',
+    //   allowedContent: 'p h1 h2 strong em; a[!href]; img[!src,width,height];'
+    // } );
+
+    // $('.asdf').each(function(){
+    //   CKEDITOR.replace(this.id, {
+    //     removePlugins: 'toolbar',
+    //     allowedContent: 'p'
+    //   })
+    // });
   });
+
+  // http://stackoverflow.com/questions/2875027/clean-microsoft-word-pasted-text-using-javascript
+  function cleanWordPaste( in_word_text ) {
+    var tmp = document.createElement("DIV");
+    tmp.innerHTML = in_word_text;
+    var newString = tmp.textContent||tmp.innerText;
+    // this next piece converts line breaks into break tags
+    // and removes the seemingly endless crap code
+    newString  = newString.replace(/\n\n/g, "<br />").replace(/.*<!--.*-->/g,"");
+    // this next piece removes any break tags (up to 10) at beginning
+    for ( i=0; i<10; i++ ) {
+      if ( newString.substr(0,6)=="<br />" ) {
+        newString = newString.replace("<br />", "");
+      }
+    }
+    return newString;
+  }
+
+
+
 })(jQuery);
 
 // Can't use this (maybe) due to commercial end user license = $29 per month
