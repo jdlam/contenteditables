@@ -2,18 +2,33 @@ CKEDITOR.disableAutoInline = true;
 
 (function($) {
 
+  var inlineOpts = {
+    removePlugins: 'toolbar',
+    allowedContent: 'strong ol li ul br',
+    enterMode: 2,
+    shiftEnterMode: 2
+  };
+
   $(document).ready(function(){
     // CKEDITOR.disableAutoInLine = true;
-    CKEDITOR.inline('area1', {
-      removePlugins: 'toolbar',
-      allowedContent: 'strong ol li ul br',
-      enterMode: 2,
-      shiftEnterMode: 2
-    });
+    CKEDITOR.inline('area1', inlineOpts);
     console.log('loaded');
     $('#hello').on('click', function(){
       $div = $('<div class="asdf" contenteditable="true">');
       $('body').append($div);
+    });
+
+    $('.asdf').each(function() {
+      if (!!this.id) {
+        if (!CKEDITOR.instances[this.id]) {
+          console.log('CKEDITOR INSTANCE not found');
+          CKEDITOR.inline(this.id, inlineOpts);
+        }
+      } else {
+        console.log('id was not found in the element');
+        this.id = 'area3';
+        CKEDITOR.inline(this.id, inlineOpts);
+      }
     });
 
 
