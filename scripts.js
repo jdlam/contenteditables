@@ -15,7 +15,15 @@ function cleanWordPaste( in_word_text ) {
   return newString;
 }
 
-console.log('loaded');
+(function($) {
+  $(document).ready(function(){
+    console.log('loaded');
+    $('#hello').on('click', function(){
+      $div = $('<div class="asdf" contenteditable=true">');
+      $('body').append($div);
+    });
+  });
+})(jQuery);
 
 // Can't use this (maybe) due to commercial end user license = $29 per month
 // (function($) {
